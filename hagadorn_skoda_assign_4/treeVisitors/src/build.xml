@@ -1,0 +1,79 @@
+<project name="treeVisitors" default="compile_all" basedir="..">
+
+  <property name="BUILD.compiler"       value="modern"/>
+  <property name="src"                  value="src"/>
+  <property name="BUILD"                value="BUILD"/>
+  <property name="classes"              value="${BUILD}/classes"/>
+  <property name="doc"                  value="doc"/>
+
+  <target name="all" depends="compile_all"/>
+
+  <target name="compile_all"
+          depends="treeVisitors" />
+
+  <target name="clean">
+       <delete dir="${BUILD}"/>
+  </target>
+
+  <!-- Prepare target directories -->
+  <target name="prepare">
+        <mkdir dir="${BUILD}"/>
+        <mkdir dir="${classes}"/>
+  </target>
+
+
+ <target name="jar">
+        <mkdir dir="${BUILD}/jar"/>
+        <jar destfile="${BUILD}/jar/treeVisitors.jar" basedir="${BUILD}/classes">
+            <manifest>
+                <attribute name="Main-Class" value="treeVisitors.driver.Driver"/>
+            </manifest>
+        </jar>
+    </target>
+<!-- Create java docs and package into a tar file for easy scp -->
+<target name="javadoc" description="Generate javadocs">
+  <delete dir="${doc}"/>
+  <mkdir dir="${doc}"/>
+  <javadoc sourcepath="${src}" destdir="${doc}"/>
+
+  <delete file="TreeVisitors_Javadoc.tar" quiet="true" />
+  <tar destfile="TreeVisitors_Javadoc.tar" basedir="${doc}" compression="gzip"/>
+</target>
+
+  <!-- ** means all subdirectories as well -->
+  <!-- * means all files in the current directory -->
+  <!-- for just java files use *.java -->
+
+  <target name="treeVisitors" depends="prepare">
+    <javac srcdir="${src}"
+           includes="treeVisitors/**"
+           excludes="**/package.html"
+           destdir="${classes}"
+           classpath="${classes}"
+           debug="on"
+           optimize="on"
+           deprecation="off"/>
+  </target>
+
+
+<target name="run" depends="jar">
+        <java jar="${BUILD}/jar/treeVisitors.jar"  fork="true">
+        <arg value="${arg0}"/>
+    <arg value="${arg1}"/>
+    <arg value="${arg2}"/>
+        </java>
+  
+    </target>
+<target name="tarzip"> 
+  <tar destfile="${BUILD}/dist/hagadorn_skoda_assign4.tar.gz"
+       compression="gzip">
+    <tarfileset dir="." prefix="hagadorn_skoda_assign4/treeVisitors">
+      <include name="src/**/*.java"/>
+      <include name="src/build.xml"/>
+      <include name="README.txt"/>
+    </tarfileset>
+  </tar>
+</target>
+
+</project>
+
