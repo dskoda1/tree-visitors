@@ -1,4 +1,4 @@
-<project name="treeVisitors" default="compile_all" basedir="..">
+<project name="wordCount" default="compile_all" basedir="..">
 
   <property name="BUILD.compiler"       value="modern"/>
   <property name="src"                  value="src"/>
@@ -9,7 +9,7 @@
   <target name="all" depends="compile_all"/>
 
   <target name="compile_all"
-          depends="treeVisitors" />
+          depends="wordCount" />
 
   <target name="clean">
        <delete dir="${BUILD}"/>
@@ -24,9 +24,9 @@
 
  <target name="jar">
         <mkdir dir="${BUILD}/jar"/>
-        <jar destfile="${BUILD}/jar/treeVisitors.jar" basedir="${BUILD}/classes">
+        <jar destfile="${BUILD}/jar/wordCount.jar" basedir="${BUILD}/classes">
             <manifest>
-                <attribute name="Main-Class" value="treeVisitors.driver.Driver"/>
+                <attribute name="Main-Class" value="wordCount.driver.Driver"/>
             </manifest>
         </jar>
     </target>
@@ -36,17 +36,17 @@
   <mkdir dir="${doc}"/>
   <javadoc sourcepath="${src}" destdir="${doc}"/>
 
-  <delete file="TreeVisitors_Javadoc.tar" quiet="true" />
-  <tar destfile="TreeVisitors_Javadoc.tar" basedir="${doc}" compression="gzip"/>
+  <delete file="WordCount_Javadoc.tar" quiet="true" />
+  <tar destfile="WordCount_Javadoc.tar" basedir="${doc}" compression="gzip"/>
 </target>
 
   <!-- ** means all subdirectories as well -->
   <!-- * means all files in the current directory -->
   <!-- for just java files use *.java -->
 
-  <target name="treeVisitors" depends="prepare">
+  <target name="wordCount" depends="prepare">
     <javac srcdir="${src}"
-           includes="treeVisitors/**"
+           includes="wordCount/**"
            excludes="**/package.html"
            destdir="${classes}"
            classpath="${classes}"
@@ -57,7 +57,7 @@
 
 
 <target name="run" depends="jar">
-        <java jar="${BUILD}/jar/treeVisitors.jar"  fork="true">
+        <java jar="${BUILD}/jar/wordCount.jar"  fork="true">
         <arg value="${arg0}"/>
     <arg value="${arg1}"/>
     <arg value="${arg2}"/>
@@ -68,7 +68,7 @@
 <target name="tarzip"> 
   <tar destfile="${BUILD}/dist/hagadorn_skoda_assign4.tar.gz"
        compression="gzip">
-    <tarfileset dir="." prefix="hagadorn_skoda_assign4/treeVisitors">
+    <tarfileset dir="." prefix="hagadorn_skoda_assign4/wordCount">
       <include name="src/**/*.java"/>
       <include name="src/build.xml"/>
       <include name="README.txt"/>
