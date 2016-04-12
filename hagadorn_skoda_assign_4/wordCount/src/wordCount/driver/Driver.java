@@ -1,10 +1,11 @@
-package treeVisitors.driver;
+package wordCount.driver;
 
-import treeVisitors.util.Logger;
-import treeVisitors.treesForStrings.Trie;
+import wordCount.util.Logger;
+import wordCount.treesForStrings.Trie;
 public class Driver{
   public static void main(String args[]) {
     //Command line argument verification
+	//4 arguments: input file, output file, search string, debug level
     validateArgLength(args.length, 4);
 
     //Verify string arguments or pass them directly to file processor here
@@ -32,7 +33,7 @@ public class Driver{
   private static void validateArgLength(int argsLength, int expectedLength)
     throws IllegalArgumentException {
       if(argsLength > expectedLength){
-        throw new IllegalArgumentException("TreeVisitors requires four"
+        throw new IllegalArgumentException("wordCount requires four"
             + " arguments to be passed in at runtime.\n"
             + "More than three were passed into the execution of this program.\n"
             + "This could be a result of extra default args set in your ant buildfile.\n" 
@@ -56,6 +57,7 @@ public class Driver{
       String exCaught, String exMessage) throws IllegalArgumentException {
     int retVal = 0;
     try{
+    	System.out.println(param);
       retVal = Integer.valueOf(param);
     }catch(NumberFormatException nfe){
       System.err.println(exCaught);

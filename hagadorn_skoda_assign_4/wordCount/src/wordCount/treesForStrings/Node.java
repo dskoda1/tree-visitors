@@ -1,4 +1,4 @@
-package treeVisitors.treesForStrings;
+package wordCount.treesForStrings;
 
 import java.util.ArrayList;
 

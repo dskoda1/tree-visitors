@@ -1,4 +1,4 @@
-package treeVisitors.util;
+package wordCount.util;
 
 import java.lang.System;
 

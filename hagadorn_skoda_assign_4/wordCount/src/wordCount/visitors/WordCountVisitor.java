@@ -1,4 +1,4 @@
-package treeVisitors.visitors;
+package wordCount.visitors;
 
 public class WordCountVisitor{
 

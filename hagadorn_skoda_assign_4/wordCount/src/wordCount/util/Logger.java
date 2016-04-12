@@ -1,4 +1,4 @@
-package treeVisitors.util;
+package wordCount.util;
 
 public class Logger{
 

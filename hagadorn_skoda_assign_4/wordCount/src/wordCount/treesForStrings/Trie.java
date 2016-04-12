@@ -1,7 +1,7 @@
-package treeVisitors.treesForStrings;
+package wordCount.treesForStrings;
 
 
-import treeVisitors.treesForStrings.Node;
+import wordCount.treesForStrings.Node;
 
 public class Trie{
 
