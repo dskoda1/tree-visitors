@@ -2,41 +2,54 @@ package wordCount.treesForStrings;
 
 import java.util.ArrayList;
 
-public class Node{
+public class Node {
 
-  boolean leaf;
-  int occurences;
-  private ArrayList<Node> children;
-  char letter;
+	int occurences;
+	ArrayList<Node> children;
+	Node parent;
+	char letter;
 
+	public Node(char c) {
+		children = new ArrayList<Node>();
+		occurences = 0;
+		letter = c;
+		parent = null;
+	}
 
-  public Node(char c){
-    children = new ArrayList<Node>();
-    occurences = 0;
-    leaf = false;
-    letter = c;
-  }
+	/**
+	 * Check if this node has a matching child for
+	 * the character requested.
+	 * @param c
+	 * @return The child node that matches, or null
+	 */
+	public Node contains(char c) {
+		if (children != null) {
+			for (Node child : children) {
+				if (child.letter == c) {
+					return child;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public void occurred(){
+		this.occurences++;
+	}
 
-  public Node contains(char c){
-    if(children != null){
-      for(Node child : children){
-        if(child.letter == c){
-          return child;
-        }
-      }
-    }
-    return null;
-  }
+	/**
+	 * Add the char passed in as a node.
+	 * @param c the char to create a node for
+	 */
+	public Node addChild(char c) {
+		children.add(new Node(c));
+		return contains(c);
+	}
 
-  public void addChild(char c){
-    children.add(new Node(c));
-  } 
-
-  @Override
-  public String toString(){
-    return "Letter: " + this.letter + "\n" + 
-          "Occurs: " + this.occurences + "\n" +
-          "Leaf: " + this.leaf + "\n";
-  }
+	@Override
+	public String toString() {
+		return "Letter: " + this.letter + "\n" + "Occurs: " + this.occurences
+				+ "\n";
+	}
 
 }

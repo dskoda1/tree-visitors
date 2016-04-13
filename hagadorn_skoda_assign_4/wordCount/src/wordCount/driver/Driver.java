@@ -20,14 +20,19 @@ public class Driver{
     Trie t = new Trie();
     t.insert("Hello");
     t.insert("Herro");
+    t.insert("herring");
+    t.insert("Hey");
     t.insert("No");
     t.insert("Node");
-    System.out.println(t.search("Hello"));
-    System.out.println(t.search("Herro"));
-    System.out.println(t.search("Herr"));
-    System.out.println(t.search("Herroo"));
-    System.out.println("");
-    System.out.println("");
+    System.out.println(t.getWord(t.search("Hello")));
+    //System.out.println(t.search("Herro"));
+    //System.out.println(t.search("Herr"));
+    //System.out.println(t.search("Herroo"));
+    for(String n : t.getAllWords()){
+    	System.out.println(n);
+    }
+    
+    
   } // end main(...)
 
   private static void validateArgLength(int argsLength, int expectedLength)
@@ -57,7 +62,6 @@ public class Driver{
       String exCaught, String exMessage) throws IllegalArgumentException {
     int retVal = 0;
     try{
-    	System.out.println(param);
       retVal = Integer.valueOf(param);
     }catch(NumberFormatException nfe){
       System.err.println(exCaught);
