@@ -1,7 +1,7 @@
 package wordCount.visitors;
 
 import wordCount.treesForStrings.Trie;
-
+import wordCount.visitors.TreeProcessingVisitorI;
 /**
  * Description: A visitor for "grep" that finds how many times a search-string occurs in the tree.
  * Search string will be a single string.

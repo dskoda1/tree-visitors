@@ -1,6 +1,5 @@
 package wordCount.driver;
 
-import wordCount.util.Logger;
 import wordCount.visitors.GrepVisitor;
 import wordCount.visitors.PopulateTreeVisitor;
 import wordCount.visitors.TreeProcessingVisitorI;
@@ -10,37 +9,13 @@ import wordCount.treesForStrings.Trie;
 public class Driver{
 	public static void main(String args[]) {
 		//Command line argument verification
-		//4 arguments: input file, output file, num iterations, search string, debug level
-		validateArgLength(args.length, 5);
-
+		//4 arguments: input file, output file, num iterations
+		validateArgLength(args.length, 4);
 		//Verify string arguments or pass them directly to file processor here
 
 		// Verify Num Iterations
 		int NUM_ITERATIONS = validateNumParam(args[2], Integer.MIN_VALUE, Integer.MAX_VALUE, "Exception caught parsing argument 3: Num Iterations.",
 				"Argument 3 must be a string that can be parsed into an int.");
-		//Verify debug level argument 
-		int debugLevel = validateNumParam(args[4], 0, 4, "Exception caught parsing argument 5: Debug Level.",
-				"Argument 5 must be a string that can be parsed into an int, and between 0-4, inclusive.");
-		//Initialize logger
-		Logger.setDebugValue(debugLevel);
-
-		// TODO remove debug statements --------------
-		//Program to an interface here?
-		Trie t = new Trie();
-		t.insert("Hello");
-		t.insert("Herro");
-		t.insert("herring");
-		t.insert("Hey");
-		t.insert("No");
-		t.insert("Node");
-		System.out.println(t.getWord(t.search("Hello")));
-		//System.out.println(t.search("Herro"));
-		//System.out.println(t.search("Herr"));
-		//System.out.println(t.search("Herroo"));
-		for(String n : t.getAllWords()){
-			System.out.println(n);
-		}
-		//------------
 
 		// Call visitors and test performance
 		long startTime = System.currentTimeMillis();
@@ -48,11 +23,14 @@ public class Driver{
 		for(int i = 0; i < NUM_ITERATIONS; i++) {
 			// Declare/instantiate the tree and visitors
 			Trie trie = new Trie();
-			TreeProcessingVisitorI populateTreeVisitor = new PopulateTreeVisitor();
+			TreeProcessingVisitorI populateTreeVisitor = new PopulateTreeVisitor(args[0]);
 			TreeProcessingVisitorI wordCountVisitor = new WordCountVisitor();
 			TreeProcessingVisitorI grepVisitor = new GrepVisitor();
 			// Code to visit with the PopulateTreeVisitor
 			trie.accept(populateTreeVisitor);
+			for(String n : trie.getAllWords()){
+				System.out.println(n);
+			}
 			// Code to visit with the WordCountVisitor
 			trie.accept(wordCountVisitor);
 			// Code to grep with the grepVisitor
@@ -70,11 +48,11 @@ public class Driver{
 		if(argsLength > expectedLength){
 			throw new IllegalArgumentException("wordCount requires four"
 					+ " arguments to be passed in at runtime.\n"
-					+ "More than three were passed into the execution of this program.\n"
+					+ "More than four were passed into the execution of this program.\n"
 					+ "This could be a result of extra default args set in your ant buildfile.\n" 
 					+ "Ant usage: \n\t"
 					+ "ant -buildfile src/build.xml run -Darg0=<input file> "
-					+ "-Darg1=<output file> -Darg2=<Search String> -Darg3=<debug level>\n");
+					+ "-Darg1=<output file> -Darg2=<Num Iterations> -Darg3=<Search String>\n");
 		}
 		if(argsLength < expectedLength)
 		{
@@ -85,7 +63,7 @@ public class Driver{
 					+ "has 4 arguments set in the run command. Otherwise they will silently not be passed in.\n\n"
 					+ "Ant usage: \n\t"
 					+ "ant -buildfile src/build.xml run -Darg0=<input file> "
-					+ "-Darg1=<output file> -Darg2=<Search String> -Darg3=<debug level>\n");
+					+ "-Darg1=<output file> -Darg2=<Num Iterations> -Darg3=<Search String>\n");
 		} 
 	}
 	private static int validateNumParam(String param, int min, int max, 

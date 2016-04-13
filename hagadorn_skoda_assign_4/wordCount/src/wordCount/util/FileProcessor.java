@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
-public final class FileProcessor{
+public final class FileProcessor implements FileProcessorI{
 
   //Private members.
   private String fileName;
@@ -58,7 +58,7 @@ public final class FileProcessor{
    * Reads a single line from the BufferedReader class member.
    * @return A line from the file, String
    */
-  public String readLineFromFile(){
+  public String readLine(){
     String line = null;
     try{
       //Attempt to read a line, and close if no more lines
@@ -75,6 +75,10 @@ public final class FileProcessor{
     return line;
   }
 
+  public void writeLine(String line){
+	  //TODO
+  }
+  
   /**
    * For debugging purposes
    */

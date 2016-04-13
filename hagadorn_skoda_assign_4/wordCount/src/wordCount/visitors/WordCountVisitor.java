@@ -1,6 +1,7 @@
 package wordCount.visitors;
 
 import wordCount.treesForStrings.Trie;
+import wordCount.visitors.TreeProcessingVisitorI;
 
 /**
  * Description: A visitor that counts:
