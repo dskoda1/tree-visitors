@@ -1,7 +1,14 @@
 package wordCount.visitors;
 
-public class GrepVisitor{
+import wordCount.treesForStrings.Trie;
 
-
-
+/**
+ * Description: A visitor for "grep" that finds how many times a search-string occurs in the tree.
+ * Search string will be a single string.
+ * Must be exact match (case sensitive, not a substring)
+ */
+public class GrepVisitor implements TreeProcessingVisitorI{
+	public void visit(Trie trie) {
+		// TODO
+	}
 }

@@ -1,10 +1,12 @@
 package wordCount.treesForStrings;
 
-
 import wordCount.treesForStrings.Node;
+import wordCount.visitors.TreeProcessingVisitorI;
+
 import java.util.ArrayList;
 import java.lang.StringBuilder;
 import java.util.LinkedList;
+
 public class Trie{
 
   private Node root;
@@ -90,8 +92,7 @@ public class Trie{
 			  nodes.add(n);
 		  }
 	  }
-	  return words;
-	  
+	  return words; 
   }
   
   /**
@@ -110,6 +111,14 @@ public class Trie{
 		  n = n.parent;
 	  }
 	  return sb.toString();
+  }
+  
+  /**
+   * Allow visitor to visit trie
+   * @param visitor
+   */
+  public void accept(TreeProcessingVisitorI visitor) {
+	  visitor.visit(this);
   }
   
 }
