@@ -1,50 +1,10 @@
-The total number of words is: 349900
-The most frequently used word is: aaaa
-The frequency of the most frequently used word is: 1
-The number of characters (without whitespaces) is: 2856180
-The word 'sup' does not exist.
-The total number of words is: 349900
-The most frequently used word is: aaaa
-The frequency of the most frequently used word is: 1
-The number of characters (without whitespaces) is: 2856180
-The word 'sup' does not exist.
-The total number of words is: 349900
-The most frequently used word is: aaaa
-The frequency of the most frequently used word is: 1
-The number of characters (without whitespaces) is: 2856180
-The word 'sup' does not exist.
-The total number of words is: 349900
-The most frequently used word is: aaaa
-The frequency of the most frequently used word is: 1
-The number of characters (without whitespaces) is: 2856180
-The word 'sup' does not exist.
-The total number of words is: 349900
-The most frequently used word is: aaaa
-The frequency of the most frequently used word is: 1
-The number of characters (without whitespaces) is: 2856180
-The word 'sup' does not exist.
-The total number of words is: 349900
-The most frequently used word is: aaaa
-The frequency of the most frequently used word is: 1
-The number of characters (without whitespaces) is: 2856180
-The word 'sup' does not exist.
-The total number of words is: 349900
-The most frequently used word is: aaaa
-The frequency of the most frequently used word is: 1
-The number of characters (without whitespaces) is: 2856180
-The word 'sup' does not exist.
-The total number of words is: 349900
-The most frequently used word is: aaaa
-The frequency of the most frequently used word is: 1
-The number of characters (without whitespaces) is: 2856180
-The word 'sup' does not exist.
-The total number of words is: 349900
-The most frequently used word is: aaaa
-The frequency of the most frequently used word is: 1
-The number of characters (without whitespaces) is: 2856180
-The word 'sup' does not exist.
-The total number of words is: 349900
-The most frequently used word is: aaaa
-The frequency of the most frequently used word is: 1
-The number of characters (without whitespaces) is: 2856180
-The word 'sup' does not exist.
+The total number of words is: 6749
+The most frequently used word is: of
+The frequency of the most frequently used word is: 248
+The number of characters (without whitespaces) is: 36522
+The word 'the' occurs the following times: 242
+The total number of words is: 6749
+The most frequently used word is: of
+The frequency of the most frequently used word is: 248
+The number of characters (without whitespaces) is: 36522
+The word 'the' occurs the following times: 242
