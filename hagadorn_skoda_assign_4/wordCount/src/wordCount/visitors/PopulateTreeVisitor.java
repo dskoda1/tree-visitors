@@ -13,9 +13,8 @@ public class PopulateTreeVisitor implements TreeProcessingVisitorI{
 	
 	public PopulateTreeVisitor(){
 		System.out.println("Populate Tree Visitor needs a file name during construction. Exiting.");
-		System.exit(0);
+		System.exit(1);
 	}
-	
 	
 	public PopulateTreeVisitor(String fileName){
 		this.fp = new FileProcessor(fileName);

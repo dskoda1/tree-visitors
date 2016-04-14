@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Node {
 
-	int occurences;
-	ArrayList<Node> children;
-	Node parent;
-	char letter;
+	public int occurrences;
+	public ArrayList<Node> children;
+	public Node parent;
+	public char letter;
 
 	public Node(char c) {
 		children = new ArrayList<Node>();
-		occurences = 0;
+		occurrences = 0;
 		letter = c;
 		parent = null;
 	}
@@ -34,7 +34,7 @@ public class Node {
 	}
 	
 	public void occurred(){
-		this.occurences++;
+		this.occurrences++;
 	}
 
 	/**
@@ -48,8 +48,7 @@ public class Node {
 
 	@Override
 	public String toString() {
-		return "Letter: " + this.letter + "\n" + "Occurs: " + this.occurences
-				+ "\n";
+		return "Node [occurrences=" + occurrences + ", children=" + children
+				+ ", parent=" + parent + ", letter=" + letter + "]";
 	}
-
 }

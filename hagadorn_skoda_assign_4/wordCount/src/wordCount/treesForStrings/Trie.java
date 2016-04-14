@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class Trie{
 
-  private Node root;
+  public Node root;
 
   public Trie(){
     root = new Node(' ');
@@ -31,7 +31,7 @@ public class Trie{
       }
     }
     
-    if(temp.occurences > 0){
+    if(temp.occurrences > 0){
     	return temp;
     }else{
     	return null;
@@ -85,7 +85,7 @@ public class Trie{
 	  }
 	  while(nodes.size() > 0){
 		  temp = nodes.remove();
-		  if(temp.occurences > 0){
+		  if(temp.occurrences > 0){
 			  words.add(getWord(temp));
 		  }
 		  for(Node n : temp.children){

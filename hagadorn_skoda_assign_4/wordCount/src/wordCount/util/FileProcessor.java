@@ -37,8 +37,6 @@ public final class FileProcessor implements FileProcessorI{
    */
   public FileProcessor(String fileName) {
     super();
-    Logger.writeMessage("Constructor for FileProcessor Class called.",
-        Logger.DebugLevel.CONSTRUCTOR); 
     this.fileName = fileName;
     //Construct the infrastructure to read the file
     try{

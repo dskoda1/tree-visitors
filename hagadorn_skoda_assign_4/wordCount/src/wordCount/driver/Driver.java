@@ -1,5 +1,9 @@
 package wordCount.driver;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import wordCount.visitors.GrepVisitor;
 import wordCount.visitors.PopulateTreeVisitor;
 import wordCount.visitors.TreeProcessingVisitorI;
@@ -7,46 +11,51 @@ import wordCount.visitors.WordCountVisitor;
 import wordCount.treesForStrings.Trie;
 
 public class Driver{
-	public static void main(String args[]) {
+	public static void main(String args[]) throws IOException {
 		//Command line argument verification
-		//4 arguments: input file, output file, num iterations
+		//4 arguments: input file, output file, num iterations, search string
 		validateArgLength(args.length, 4);
-		//Verify string arguments or pass them directly to file processor here
+		BufferedWriter br = null;
+		try {
+			br = new BufferedWriter(new FileWriter(args[1], false));
 
-		// Verify Num Iterations
-		int NUM_ITERATIONS = validateNumParam(args[2], Integer.MIN_VALUE, Integer.MAX_VALUE, "Exception caught parsing argument 3: Num Iterations.",
-				"Argument 3 must be a string that can be parsed into an int.");
+			// Verify Num Iterations
+			int NUM_ITERATIONS = validateNumParam(args[2], Integer.MIN_VALUE, Integer.MAX_VALUE, "Exception caught parsing argument 3: Num Iterations.",
+					"Argument 3 must be a string that can be parsed into an int.");
 
-		// Call visitors and test performance
-		long startTime = System.currentTimeMillis();
+			// Call visitors and test performance
+			long startTime = System.currentTimeMillis();
 
-		for(int i = 0; i < NUM_ITERATIONS; i++) {
-			// Declare/instantiate the tree and visitors
-			Trie trie = new Trie();
-			TreeProcessingVisitorI populateTreeVisitor = new PopulateTreeVisitor(args[0]);
-			TreeProcessingVisitorI wordCountVisitor = new WordCountVisitor();
-			TreeProcessingVisitorI grepVisitor = new GrepVisitor();
-			// Code to visit with the PopulateTreeVisitor
-			trie.accept(populateTreeVisitor);
-			for(String n : trie.getAllWords()){
-				System.out.println(n);
+			for(int i = 0; i < NUM_ITERATIONS; i++) {
+				// Declare/instantiate the tree and visitors
+				Trie trie = new Trie();
+				TreeProcessingVisitorI populateTreeVisitor = new PopulateTreeVisitor(args[0]);
+				TreeProcessingVisitorI wordCountVisitor = new WordCountVisitor(br);
+				TreeProcessingVisitorI grepVisitor = new GrepVisitor(br, args[3]);
+				// Code to visit with the PopulateTreeVisitor
+				trie.accept(populateTreeVisitor);
+				// Code to visit with the WordCountVisitor
+				trie.accept(wordCountVisitor);
+				// Code to grep with the grepVisitor
+				trie.accept(grepVisitor);
 			}
-			// Code to visit with the WordCountVisitor
-			trie.accept(wordCountVisitor);
-			// Code to grep with the grepVisitor
-			trie.accept(grepVisitor);
-		}
 
-		long finishTime = System.currentTimeMillis();
-		long totalTime = (finishTime-startTime)/NUM_ITERATIONS;
-		System.out.println("The total time it took to visit with each visitor is: " + totalTime + " ms.");
+			long finishTime = System.currentTimeMillis();
+			long totalTime = (finishTime-startTime)/NUM_ITERATIONS;
+			System.out.println("The total time it took to visit with each visitor is: " + totalTime + " ms.");
+		} catch (IOException e) {
+			System.out.println("Output file titled '" + args[1] + "' unable to be opened for write.");
+			e.printStackTrace();
+			System.exit(1);
+		} finally {
+			br.close();
+		}
 	} // end main(...)
 
-	// TODO need to update error thrown
 	private static void validateArgLength(int argsLength, int expectedLength)
 			throws IllegalArgumentException {
 		if(argsLength > expectedLength){
-			throw new IllegalArgumentException("wordCount requires four"
+			throw new IllegalArgumentException("WordCount requires four"
 					+ " arguments to be passed in at runtime.\n"
 					+ "More than four were passed into the execution of this program.\n"
 					+ "This could be a result of extra default args set in your ant buildfile.\n" 
@@ -56,7 +65,7 @@ public class Driver{
 		}
 		if(argsLength < expectedLength)
 		{
-			throw new IllegalArgumentException("StudentRecordsBackup requires four"
+			throw new IllegalArgumentException("WordCount requires four"
 					+ " arguments to be passed in at runtime.\n"
 					+ "You have passed in less than four arguments. Please check your usage.\n"
 					+ "If you are passing four arguments and using ant, ensure that your buildfile "
