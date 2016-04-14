@@ -28,6 +28,9 @@ public class Node {
 				if (child.letter == c) {
 					return child;
 				}
+				//TODO short circuit if its no longer possible
+				//for the node to exist. Was getting null ptrs
+				//if(child.letter > c) return null; ??
 			}
 		}
 		return null;
@@ -38,12 +41,29 @@ public class Node {
 	}
 
 	/**
-	 * Add the char passed in as a node.
+	 * Add the char passed in as a node. 
+	 * Maintain alphabetical order.
 	 * @param c the char to create a node for
 	 */
 	public Node addChild(char c) {
-		children.add(new Node(c));
-		return contains(c);
+		//Find the index at which c is < the current childs letter
+		if(children.size() > 0){
+			int i = 0;
+			for(i = 0; i < children.size() && children.get(i).letter < c; ++i){}
+			if(i == children.size()){
+				//insert at end
+				children.add(new Node(c));
+				return children.get(children.size() - 1);
+			}else{
+				//insert at i index
+				children.add(i, new Node(c));
+				return children.get(i);
+			}
+			
+		}else{
+			children.add(new Node(c));
+			return children.get(0);
+		}
 	}
 
 	@Override

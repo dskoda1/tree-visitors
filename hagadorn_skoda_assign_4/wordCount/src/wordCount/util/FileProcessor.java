@@ -5,6 +5,8 @@ import java.lang.System;
 //File input classes, exceptions
 import java.io.FileInputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
@@ -14,6 +16,7 @@ public final class FileProcessor implements FileProcessorI{
   //Private members.
   private String fileName;
   private BufferedReader br;
+  private BufferedWriter bw;
 
   /**
    * Class constructor.
@@ -52,6 +55,16 @@ public final class FileProcessor implements FileProcessorI{
       System.exit(1);
     }
   }
+  public FileProcessor(String fileName, boolean forOutput){
+		try {
+			bw = new BufferedWriter(new FileWriter(fileName, false));
+		} catch (IOException e) {
+			System.out.println("Output file titled '" + fileName + "' unable to be opened for write.");
+			e.printStackTrace();
+			System.exit(1);
+		}
+
+  }
   /**
    * Reads a single line from the BufferedReader class member.
    * @return A line from the file, String
@@ -72,9 +85,38 @@ public final class FileProcessor implements FileProcessorI{
     }
     return line;
   }
-
+  
+  /**
+   * Write a single line to the BufferedWriter class member.
+   */
   public void writeLine(String line){
-	  //TODO
+	  try {
+		bw.write(line);
+		bw.newLine();
+	} catch (IOException e) {
+		System.out.println("Error writing line to file " + fileName);
+		e.printStackTrace();
+		System.exit(1);
+	}
+  }
+  
+  public void close(){
+	  if(bw != null){
+		  try {
+			bw.close();
+		} catch (IOException e) {
+			System.out.println("Exception closing buffered writer for file: " + fileName);
+			e.printStackTrace();
+		}
+	  }
+	  if(br != null){
+		  try{
+			  br.close();
+		  }catch(IOException io){
+			  System.out.println("Exception closing buffered reader for file: " + fileName);
+				io.printStackTrace();		  
+		  }
+	  }
   }
   
   /**

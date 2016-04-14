@@ -34,6 +34,8 @@ public class PopulateTreeVisitor implements TreeProcessingVisitorI{
 				trie.insert(w);
 			}
 		}
+		
+		fp.close();
 	}
 }
 

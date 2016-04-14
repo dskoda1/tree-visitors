@@ -3,7 +3,9 @@ package wordCount.visitors;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import wordCount.treesForStrings.Trie;
+import wordCount.treesForStrings.Node;
 import wordCount.visitors.TreeProcessingVisitorI;
+import wordCount.util.FileProcessorI;
 
 /**
  * Description: A visitor that counts:
@@ -13,7 +15,7 @@ import wordCount.visitors.TreeProcessingVisitorI;
  * and stores results in a file
  */
 public class WordCountVisitor implements TreeProcessingVisitorI{
-	private BufferedWriter br = null;
+	private FileProcessorI fp = null;
 	// Includes duplicate words
 	public int numOfWords;
 	public int numOfChars;
@@ -25,33 +27,26 @@ public class WordCountVisitor implements TreeProcessingVisitorI{
 		System.exit(1);
 	}
 
-	public WordCountVisitor(BufferedWriter brIn){
-		br = brIn;
+	public WordCountVisitor(FileProcessorI fpIn){
+		fp = fpIn;
 		numOfWords = 0;
 		numOfChars = 0;
 		highestFrequency = 0;
 	}
 
 	public void visit(Trie trie) {
-		traverse(trie, trie.root);
-		// Store results in output file
-		try {
-			br.write("The total number of words is: " + numOfWords);
-			br.newLine();
-			br.write("The most frequently used word is: " + mostFrequentWord);
-			br.newLine();
-			br.write("The frequency of the most frequently used word is: " + highestFrequency);
-			br.newLine();
-			br.write("The number of characters (without whitespaces) is: " + numOfChars);
-			br.newLine();
-		} catch (IOException e) {
-			System.out.println("Unable to write to output file.");
-			e.printStackTrace();
-			System.exit(1);
+		for(Node n : trie.root.children){
+			traverse(trie, n);
 		}
+		// Store results in output file
+		fp.writeLine("The total number of words is: " + numOfWords);
+		fp.writeLine("The most frequently used word is: " + mostFrequentWord);
+		fp.writeLine("The frequency of the most frequently used word is: " + highestFrequency);
+		fp.writeLine("The number of characters (without whitespaces) is: " + numOfChars);
+			
 	}
 
-	private void traverse(Trie trie, wordCount.treesForStrings.Node curNode) {
+	private void traverse(Trie trie, Node curNode) {
 		if(curNode.occurrences != 0) {
 			numOfWords += curNode.occurrences;
 			numOfChars += trie.getWord(curNode).length() * curNode.occurrences;
