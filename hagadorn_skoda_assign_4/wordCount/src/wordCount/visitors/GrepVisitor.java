@@ -27,18 +27,13 @@ public class GrepVisitor implements TreeProcessingVisitorI {
 	public void visit(Trie trie) {
 		// Make sure the word actually occurs
 		if (trie.search(searchStr) != null) {
-			// System.out.println("The word '" + searchStr +
-			// "' occurs the following times: " +
-			// trie.search(searchStr).occurrences);
 			fp.writeLine("The word '" + searchStr
 					+ "' occurs the following times: "
 					+ trie.search(searchStr).occurrences);
 		} else {
-			// System.out.println("The word '" + searchStr +
-			// "' does not exist.");
 			fp.writeLine("The word '" + searchStr + "' does not exist.");
 		}
-
+		fp.writeLine("");
 	}
 
 	@Override

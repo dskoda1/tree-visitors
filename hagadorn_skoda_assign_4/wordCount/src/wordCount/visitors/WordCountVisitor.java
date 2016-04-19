@@ -2,6 +2,9 @@ package wordCount.visitors;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import wordCount.treesForStrings.Trie;
 import wordCount.treesForStrings.Node;
 import wordCount.visitors.TreeProcessingVisitorI;
@@ -20,7 +23,7 @@ public class WordCountVisitor implements TreeProcessingVisitorI{
 	public int numOfWords;
 	public int numOfChars;
 	public int highestFrequency;
-	public String mostFrequentWord;
+	public List<String> mostFrequentWords = new ArrayList<String>();
 
 	public WordCountVisitor(){
 		System.out.println("WordCountVisitor needs an output file name during construction. Exiting.");
@@ -40,7 +43,14 @@ public class WordCountVisitor implements TreeProcessingVisitorI{
 		}
 		// Store results in output file
 		fp.writeLine("The total number of words is: " + numOfWords);
-		fp.writeLine("The most frequently used word is: " + mostFrequentWord);
+		if (!mostFrequentWords.isEmpty()) {
+			fp.writeLine("Most frequently used word(s): ");
+			for(String str : mostFrequentWords) {
+				fp.writeLine("- " + str);
+			}
+		} else {
+			fp.writeLine("File is empty, no most frequent word found.");
+		}
 		fp.writeLine("The frequency of the most frequently used word is: " + highestFrequency);
 		fp.writeLine("The number of characters (without whitespaces) is: " + numOfChars);
 			
@@ -53,7 +63,10 @@ public class WordCountVisitor implements TreeProcessingVisitorI{
 		}
 		if(curNode.occurrences > highestFrequency) {
 			highestFrequency = curNode.occurrences;
-			mostFrequentWord = trie.getWord(curNode);
+			mostFrequentWords.clear();
+			mostFrequentWords.add(trie.getWord(curNode));
+		} else if (curNode.occurrences == highestFrequency) {
+			mostFrequentWords.add(trie.getWord(curNode));
 		}
 		for(int i=0; i<curNode.children.size(); i++) {
 			traverse(trie, curNode.children.get(i));
